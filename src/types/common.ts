@@ -22,7 +22,7 @@ export type Booking = {
   id: string;
   formState: Booking_FormState;
   type: BookingType;
-  date: Date;
+  date: string; // YYYY-MM-DD
   time: string;
   userInfo: Booking_UserInfo;
 };

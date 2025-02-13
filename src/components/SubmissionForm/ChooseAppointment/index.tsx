@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa6";
 import DatePicker from "react-datepicker";
 import { FiChevronsRight } from "react-icons/fi";
@@ -8,17 +8,36 @@ import { BookingContext } from "@/context/booking";
 import { BookingType } from "@/types/common";
 import { bookingSelections } from "@/data/booking";
 import { Button, RadioGroup } from "@/components";
+import { parseDateToText } from "@/utils/text";
 
 import SelectionType from "./SelectionType";
+import { bookingAPI } from "@/services/bookingServices";
 
 export default function ChooseAppointment() {
   const { booking, setBooking } = useContext(BookingContext);
+
+  const [availableTimeSlots, setAvailableTimeSlots] = useState<string[]>([]);
+
+  useEffect(() => {
+    async function fetchAvailableTimeSlots() {
+      const _availableTimeSlots = await bookingAPI.getAvailableTimeSlots(
+        booking.id,
+        booking.date
+      );
+
+      setAvailableTimeSlots(_availableTimeSlots);
+    }
+
+    if (booking.formState.chooseAppointmentMode === "detail") {
+      fetchAvailableTimeSlots();
+    }
+  }, [booking.date, booking.id, booking.formState.chooseAppointmentMode]);
 
   const handleChangeBookingDate = (date: Date | null) => {
     if (date) {
       setBooking({
         ...booking,
-        date,
+        date: parseDateToText(date, "YYYY-MM-DD"),
       });
     }
   };
@@ -116,7 +135,7 @@ export default function ChooseAppointment() {
           </div>
 
           <DatePicker
-            selected={booking.date}
+            selected={new Date(booking.date)}
             onChange={handleChangeBookingDate}
             minDate={new Date()}
             inline
@@ -126,60 +145,12 @@ export default function ChooseAppointment() {
             <p className="mb-2 font-bold">Please select a time</p>
 
             <RadioGroup
-              items={[
-                {
-                  label: "10:00 AM",
-                  value: "10:00AM",
-                },
-                {
-                  label: "10:30 AM",
-                  value: "10:30AM",
-                },
-                {
-                  label: "11:00 AM",
-                  value: "11:00AM",
-                },
-                {
-                  label: "11:30 AM",
-                  value: "11:30AM",
-                },
-                {
-                  label: "12:00 PM",
-                  value: "12:00PM",
-                },
-                {
-                  label: "12:30 PM",
-                  value: "12:30PM",
-                },
-                {
-                  label: "1:00 PM",
-                  value: "1:00PM",
-                },
-                {
-                  label: "1:30 PM",
-                  value: "1:30PM",
-                },
-                {
-                  label: "2:00 PM",
-                  value: "2:00PM",
-                },
-                {
-                  label: "2:30 PM",
-                  value: "2:30PM",
-                },
-                {
-                  label: "3:00 PM",
-                  value: "3:00PM",
-                },
-                {
-                  label: "3:30 PM",
-                  value: "3:30PM",
-                },
-                {
-                  label: "4:00 PM",
-                  value: "4:00PM",
-                },
-              ]}
+              items={availableTimeSlots.map((timeSlot) => {
+                return {
+                  label: timeSlot,
+                  value: timeSlot,
+                };
+              })}
               value={booking.time}
               onChangeValue={handleChangeTimeRadio}
             />

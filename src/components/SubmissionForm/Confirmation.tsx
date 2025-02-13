@@ -1,4 +1,4 @@
-import { BookingContext } from "@/context/booking";
+import { BookingContext, DEFAULT_BOOKING_STATE } from "@/context/booking";
 import { bookingSelections } from "@/data/booking";
 import { parseDateToText } from "@/utils/text";
 import { motion } from "framer-motion";
@@ -6,15 +6,45 @@ import { useContext } from "react";
 import Button from "../Button";
 import { FiChevronsRight } from "react-icons/fi";
 import Image from "next/image";
+import { bookingAPI } from "@/services/bookingServices";
+import { toast } from "react-toastify";
 
 export default function Confirmation() {
   const { booking, setBooking } = useContext(BookingContext);
 
+  const handleClickCancelAppointment = async () => {
+    await bookingAPI.cancelBooking(booking.id);
+
+    toast("Successfully cancel appointment!", {
+      type: "success",
+    });
+
+    setBooking({
+      ...DEFAULT_BOOKING_STATE,
+      userInfo: {
+        ...DEFAULT_BOOKING_STATE.userInfo,
+        firstName: "",
+      },
+      formState: {
+        ...DEFAULT_BOOKING_STATE.formState,
+        currentStepForm: 0,
+      },
+    });
+  };
+
+  const handleClickReschedule = () => {
+    setBooking({
+      ...booking,
+      formState: {
+        ...booking.formState,
+        currentStepForm: 0,
+      },
+    });
+  };
+
   const handleClickScheduleAnotherAppointment = () => {
     window.location.reload();
   };
-
-  const handleClickReschedule = () => {};
 
   return (
     <motion.div
@@ -40,8 +70,12 @@ export default function Confirmation() {
         </div>
 
         <div className="flex flex-row mb-4">
-          <Button label="Cancel" className="mr-2" />
-          <Button label="Reschedule" />
+          <Button
+            label="Cancel"
+            className="mr-2"
+            onClick={handleClickCancelAppointment}
+          />
+          <Button label="Reschedule" onClick={handleClickReschedule} />
         </div>
 
         <Button
@@ -56,7 +90,7 @@ export default function Confirmation() {
         />
       </div>
 
-      <div className="flex flex-1 flex-col pl-8 border-l border-l-gray-300">
+      <div className="flex flex-1 flex-col pt-4 mt-6 md:mt-0 md:pt-0 md:pl-8 border-t md:border-t-0 border-t-gray-300 md:border-l border-l-gray-300">
         <p className="text-xl font-bold mb-4">
           Easily book and manage appointments with Veyor Wellness on your phone.
         </p>

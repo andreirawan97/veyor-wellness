@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 import { BookingContext } from "@/context/booking";
 import TextInput from "../TextInput";
@@ -67,6 +68,10 @@ export default function YourInfo() {
     if (isFormValid()) {
       await bookingAPI.addNewBooking(booking);
 
+      toast("Successfully make appointment!", {
+        type: "success",
+      });
+
       setBooking({
         ...booking,
         formState: {
@@ -115,6 +120,7 @@ export default function YourInfo() {
           }}
           isError={isFirstNameError}
           errorMessage="Your first name cannot be empty!"
+          onEnterPressed={handleClickContinue}
         />
         <TextInput
           className="flex flex-1"
@@ -123,6 +129,7 @@ export default function YourInfo() {
           onChangeInput={(value) => {
             handleChangeFormValue("lastName", value);
           }}
+          onEnterPressed={handleClickContinue}
         />
       </div>
 
@@ -133,6 +140,7 @@ export default function YourInfo() {
         onChangeInput={(value) => {
           handleChangeFormValue("phone", value);
         }}
+        onEnterPressed={handleClickContinue}
       />
 
       <div className="flex flex-row mb-2">
@@ -147,6 +155,7 @@ export default function YourInfo() {
         }}
         isError={isEmailError}
         errorMessage="Your email address is invalid!"
+        onEnterPressed={handleClickContinue}
       />
 
       <motion.div

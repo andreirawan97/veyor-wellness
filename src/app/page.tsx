@@ -12,7 +12,14 @@ export default function Home() {
   return (
     <BookingContext.Provider value={{ booking, setBooking }}>
       <main className="w-full min-h-screen flex flex-col items-center p-8">
-        <h1 className="text-center">Book a wellness session.</h1>
+        <h1
+          className="text-center"
+          onClick={() => {
+            console.log(booking);
+          }}
+        >
+          Book a wellness session.
+        </h1>
 
         <p className="caption text-center my-8">
           Visit one of our expert consultants to get yourself feeling 100%

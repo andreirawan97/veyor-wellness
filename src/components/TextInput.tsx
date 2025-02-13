@@ -5,6 +5,7 @@ type Props = {
   placeholder?: string;
   isError?: boolean;
   errorMessage?: string;
+  onEnterPressed?: () => void;
 };
 
 export default function TextInput(props: Props) {
@@ -15,6 +16,7 @@ export default function TextInput(props: Props) {
     placeholder,
     isError,
     errorMessage,
+    onEnterPressed,
   } = props;
 
   return (
@@ -24,6 +26,11 @@ export default function TextInput(props: Props) {
           isError ? "border-red-500" : "border-gray-300"
         } `}
         value={value}
+        onKeyDown={(e) => {
+          if (e.code === "Enter" && onEnterPressed) {
+            onEnterPressed();
+          }
+        }}
         onChange={(e) => {
           onChangeInput && onChangeInput(e.target.value);
         }}
