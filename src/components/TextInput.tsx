@@ -32,7 +32,9 @@ export default function TextInput(props: Props) {
           }
         }}
         onChange={(e) => {
-          onChangeInput && onChangeInput(e.target.value);
+          if (!!onChangeInput) {
+            onChangeInput(e.target.value);
+          }
         }}
         placeholder={placeholder}
       />

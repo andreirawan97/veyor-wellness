@@ -52,15 +52,23 @@ export default function YourInfo() {
     };
 
     const isFormValid = () => {
+      let _isFormValid = true;
+
       const { userInfo } = booking;
       const { firstName, email } = userInfo;
 
       const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-      if (!firstName) setFirstNameError(true);
-      if (!email.match(EMAIL_REGEX)) setEmailError(true);
+      if (!firstName) {
+        _isFormValid = false;
+        setFirstNameError(true);
+      }
+      if (!email.match(EMAIL_REGEX)) {
+        _isFormValid = false;
+        setEmailError(true);
+      }
 
-      return !isFirstNameError || !isEmailError;
+      return _isFormValid;
     };
 
     resetErrorsState();
