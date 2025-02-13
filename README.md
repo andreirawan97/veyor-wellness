@@ -63,15 +63,14 @@ This app is automatically deployed to **Netlify**.
 veyor-wellness/
 │── public/             # Static assets
 │── src/                # Source code
-│   ├── app/            # Application logic
+│   ├── app/            # Application pages
 │   ├── components/     # Reusable components
 │   ├── constants/      # App-wide constants
 │   ├── context/        # Global context
 │   ├── data/           # Data sources
-│   ├── services/       # API services
+│   ├── services/       # Mock API services
 │   ├── types/          # Type definitions
 │   ├── utils/          # Utility functions
 │── package.json        # Project dependencies
-│── next.config.js      # Next.js configuration
 │── README.md           # Project documentation
 ```
