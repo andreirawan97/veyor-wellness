@@ -2,11 +2,19 @@ import { v4 as uuidv4 } from "uuid";
 
 import { Booking } from "@/types/common";
 
-import { renderYourInfoText } from "../text";
+import { parseDateToText, renderYourInfoText } from "../text";
 
 describe("utils text tests", () => {
+  it("should parse date to text correctly", () => {
+    const mockDate: Date = new Date("2025-02-13");
+
+    const expectedResult = "February 13, 2025";
+
+    expect(parseDateToText(mockDate, "MMMM DD, YYYY")).toEqual(expectedResult);
+  });
+
   it("should render your info text correctly", () => {
-    const MOCK_BOOKING: Booking = {
+    const mockBooking: Booking = {
       id: uuidv4(),
       formState: {
         chooseAppointmentMode: "selection",
@@ -23,12 +31,8 @@ describe("utils text tests", () => {
       },
     };
 
-    expect(renderYourInfoText(MOCK_BOOKING)).toEqual(
+    expect(renderYourInfoText(mockBooking)).toEqual(
       "Physiotherapy February 13, 2025 10:00AM"
     );
   });
-
-  it("should parse date to text correctly" () => {
-    
-  })
 });

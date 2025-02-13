@@ -22,6 +22,7 @@ body {
 
 h1 {
   @apply text-4xl md:text-6xl;
+  font-family: "Prociono";
 }
 
 .flex-2 {

@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Prociono } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 import "./globals.css";
+
+const prociono = Prociono({
+  variable: "--font-prociono",
+  weight: "400",
+  subsets: ["latin"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${prociono.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
 
