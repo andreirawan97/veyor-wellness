@@ -57,6 +57,8 @@ npm run start  # or yarn start
 
 This app is automatically deployed to **Netlify**.
 
+To deploy, simply create a Pull Request, and the CI/CD pipeline will handle the process. The CI/CD will trigger upon merging the Pull Request.
+
 ---
 
 ## 📂 Project Structure
