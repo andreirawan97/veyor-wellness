@@ -1,5 +1,7 @@
 # 🧖 Veyor Wellness 🧖‍♀️
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/433f7231-b264-4db8-883d-00a9d4e4611d/deploy-status)](https://app.netlify.com/sites/veyor-wellness/deploys)
+
 ![Veyor screenshot](https://i.imgur.com/KP1eBGc.png)
 
 **Experience our massage as smooth as a conveyor belt.**
