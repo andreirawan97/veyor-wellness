@@ -24,8 +24,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Veyor Wellness",
-  description:
-    "Feel the smoothness of our massage as smooth as a conveyor belt.",
+  description: "Experience our massage as smooth as a conveyor belt.",
 };
 
 export default function RootLayout({
