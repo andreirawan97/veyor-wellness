@@ -1,4 +1,4 @@
-# Veyor Wellness
+# 🧖 Veyor Wellness 🧖‍♀️
 
 ![Veyor screenshot](https://i.imgur.com/KP1eBGc.png)
 
