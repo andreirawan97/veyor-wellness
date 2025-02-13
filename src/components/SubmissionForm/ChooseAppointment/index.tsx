@@ -38,6 +38,7 @@ export default function ChooseAppointment() {
       setBooking({
         ...booking,
         date: parseDateToText(date, "YYYY-MM-DD"),
+        time: "",
       });
     }
   };
